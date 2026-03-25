@@ -230,12 +230,6 @@ public class GoogleCloudStorageService {
                 SecurityUtils.loadKeyStore(certTrustStore, trustStoreStream, truststorePassword.toString());
             }
             logger.debug("Loaded custom truststore from path: {} with type: {}", truststorePath, truststoreType);
-        } else if (Security.getProvider("BCFIPS") != null) {
-            throw new IllegalStateException(
-                "FIPS mode is active but no custom truststore is configured. "
-                    + "Please configure gcs.client.<client-name>.truststore.path and "
-                    + "gcs.client.<client-name>.truststore.secure_password settings."
-            );
         } else {
             // requires java.lang.RuntimePermission "setFactory"
             // Pin the TLS trust certificates.
